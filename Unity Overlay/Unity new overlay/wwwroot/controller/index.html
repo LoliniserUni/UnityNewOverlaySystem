@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unity Stream Controller</title>
+    <script type="module" src="controller.js" defer></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background: #222;
+            color: white;
+        }
+
+        input, button, select {
+            margin: 5px 0;
+        }
+
+        .scene-controls {
+            display: none; /* hide by default */
+        }
+
+        .scene-controls.active {
+            display: block; /* show active scene */
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Unity Overlay Controller</h1>
+
+    <!-- Scene selector -->
+    <label>Select Scene:</label><br>
+    <select id="sceneSelect">
+        <option value="Starting">Starting</option>
+        <option value="Ending">Ending</option>
+        <option value="BRB">BRB</option>
+    </select><br>
+
+    <div class="scene-controls" data-scene="Starting,Ending,BRB">
+        <!-- Timer -->
+        <label>Timer (seconds):</label><br>
+        <input id="startTimerVal" type="text" placeholder="0">
+        <button id="startStartTimer">Start Timer</button>
+        <p id="startTimerStatus"></p>
+    </div>
+
+
+</body>
+</html>
