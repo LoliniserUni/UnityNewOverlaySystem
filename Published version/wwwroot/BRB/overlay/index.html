@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unity Overlay</title>
+    <!-- Important: type="module" -->
+    <script type="module" src="overlay.js" defer></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            background: url('../shared/Assets/Booth/background.png') center center / cover no-repeat;
+        }
+
+        #timerText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #00ffcc;
+            font-size: 36px;
+            font-family: 'Segoe UI', sans-serif;
+            text-shadow: 0 0 10px #000;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="timerText">00:00</h1>
+</body>
+</html>

@@ -29,6 +29,7 @@
 <body>
     <h1>Unity Overlay Controller</h1>
 
+    <h2>Scene Specific Settings</h2>
     <!-- Scene selector -->
     <label>Select Scene:</label><br>
     <select id="sceneSelect">
@@ -45,6 +46,23 @@
         <p id="startTimerStatus"></p>
     </div>
 
+    <h2>Global settings</h2>
+    <div class="Roster">
+        <label>Current Roster:</label>
+        <input id="Player1" type="text" placeholder="Player 1">
+        <input id="Player2" type="text" placeholder="Player 2">
+        <input id="Player3" type="text" placeholder="Player 3">
+        <input id="Player4" type="text" placeholder="Player 4">
+        <button id="submitRoster">Save roster</button>
+        <p id="rosterStatus"></p>
+    </div>
+
+    <div class="scrollingText">
+        <label>Scrolling text:</label>
+        <input id="ScrollingText" type="text" placeholder="Scrolling text" />
+        <button id="submitScrollingText">Save text</button>
+        <p id="scrollingTextStatus"></p>
+    </div>
 
 </body>
 </html>

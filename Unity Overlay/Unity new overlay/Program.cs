@@ -70,14 +70,51 @@ app.MapGet("/api/{scene}/config", (string scene) =>
 app.MapPost("/api/{scene}/config", async (HttpContext ctx, string scene) =>
 {
     using var reader = new StreamReader(ctx.Request.Body);
-    var json = await reader.ReadToEndAsync();
+    var newJson = await reader.ReadToEndAsync();
 
     EnsureSceneFolders(scene);
     var path = GetConfigPath(scene);
-    await File.WriteAllTextAsync(path, json);
 
-    return Results.Json(new { saved = true, scene });
+    Dictionary<string, object> newData;
+
+    try
+    {
+        newData = JsonSerializer.Deserialize<Dictionary<string, object>>(newJson)
+                  ?? new Dictionary<string, object>();
+    }
+    catch (Exception ex)
+    {
+        return Results.Json(new { error = "Invalid JSON format in request", detail = ex.Message });
+    }
+
+    Dictionary<string, object> existingData = new();
+
+    if (File.Exists(path))
+    {
+        try
+        {
+            var existingJson = await File.ReadAllTextAsync(path);
+            existingData = JsonSerializer.Deserialize<Dictionary<string, object>>(existingJson)
+                           ?? new Dictionary<string, object>();
+        }
+        catch
+        {
+            // if existing JSON is corrupted, start fresh
+            existingData = new Dictionary<string, object>();
+        }
+    }
+
+    // Merge: update existing keys or add new ones
+    foreach (var kv in newData)
+        existingData[kv.Key] = kv.Value;
+
+    // Save merged JSON
+    var mergedJson = JsonSerializer.Serialize(existingData, new JsonSerializerOptions { WriteIndented = true });
+    await File.WriteAllTextAsync(path, mergedJson);
+
+    return Results.Json(new { saved = true, scene, merged = true });
 });
+
 
 // ---------- TIMER ROUTES ----------
 
