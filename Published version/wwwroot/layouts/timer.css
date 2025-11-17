@@ -1,0 +1,10 @@
+﻿#timerText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ffcc;
+    font-size: 36px;
+    font-family: 'Segoe UI', sans-serif;
+    text-shadow: 0 0 10px #000;
+}

@@ -1,9 +1,11 @@
 {
-  "scrollText": "another",
+  "scrollText": "HELLO",
   "players": [
-    "Vudu",
-    "Loliniser",
-    "Lackstar",
+    "VUDU",
+    "LOLI",
+    "LACKS",
     "GOATS"
-  ]
+  ],
+  "caster1": "LOLINISER",
+  "caster2": "WILDEYED"
 }

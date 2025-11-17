@@ -7,4 +7,9 @@
     <RootNamespace>Unity_new_overlay</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\font\font.css" />
+    <None Include="wwwroot\font\Riverbank.ttf" />
+  </ItemGroup>
+
 </Project>

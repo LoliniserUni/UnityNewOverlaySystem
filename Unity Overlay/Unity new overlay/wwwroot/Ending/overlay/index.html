@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+<link rel="stylesheet" href="../../font/font.css">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +12,7 @@
             overflow: hidden;
             width: 100vw;
             height: 100vh;
-            background: url('../shared/Assets/Booth/background.png') center center / cover no-repeat;
+            background: url('../shared/Assets/background.png') center center / cover no-repeat;
         }
 
         #timerText {
@@ -19,14 +20,124 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #00ffcc;
-            font-size: 36px;
-            font-family: 'Segoe UI', sans-serif;
+            color: #0075B9;
+            font-size: 60px;
+            font-family: Impact;
             text-shadow: 0 0 10px #000;
+        }
+
+        .marquee {
+            width: 1920px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .track {
+            display: inline-flex;
+            min-width: 200%;
+            animation: marquee 10s linear infinite;
+            will-change: transform;
+        }
+
+            .track span {
+                padding-right: 2rem;
+            }
+
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .scrollText {
+            width: 1884px;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;
+            z-index: 11;
+        }
+
+        .scrollText1, .scrollText2 {
+            display: inline-block;
+            min-width: 1920px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 120px;
+            font-weight: bold;
+            color: #ffff;
+            text-shadow: 0 0 10px #000;
+        }
+
+        .players {
+            position: absolute;
+            bottom: 55%;
+            left: 1%;
+            z-index: 5;
+            width: 300px;
+            height: 120px;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 900;
+        }
+
+            .players p {
+                position: absolute;
+                color: white;
+                font-size: 25px;
+            }
+
+        .p1 {
+            position: absolute;
+            top: 0%;
+        }
+
+        .p2 {
+            position: absolute;
+            top: 25%;
+        }
+
+        .p3 {
+            position: absolute;
+            top: 50%;
+        }
+
+        .p4 {
+            position: absolute;
+            top: 75%;
+        }
+
+        .crown {
+            position: absolute;
+            bottom: 62%;
+            left: 5%;
         }
     </style>
 </head>
 <body>
     <h1 id="timerText">00:00</h1>
+
+    <div class="scrollText">
+        <div class="marquee">
+            <div class="track">
+                <span class="scrollText1" id="scrollText1">Hello there </span>
+                <span class="scrollText2" id="scrollText2">Hello there </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="players">
+        <p class="p1" id="p1">Player1</p>
+        <p class="p2" id="p2">Player2</p>
+        <p class="p3" id="p3">Player3</p>
+        <p class="p4" id="p4">Player4</p>
+    </div>
+
+    <img class="crown" id="crown" src="../shared/Assets/crown.png" alt="animation">
+
 </body>
 </html>

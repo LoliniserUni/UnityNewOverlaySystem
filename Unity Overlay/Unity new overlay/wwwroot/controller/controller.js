@@ -1,5 +1,5 @@
 ﻿import { startTimer } from "/GlobalShared/scripts/timer.js";
-import { loadPlayers, getScrollText } from "/GlobalShared/scripts/functions.js";
+import { loadPlayers, getScrollText, getCasters} from "/GlobalShared/scripts/functions.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const sceneSelect = document.getElementById("sceneSelect");
@@ -13,9 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const scrollTextSubmit = document.getElementById("submitScrollingText");
 
+    const casterSubmit = document.getElementById("submitCasters");
+
+    console.log("Caster submit button =", casterSubmit);
+
     loadPlayers("Player1", "Player2", "Player3", "Player4");
     updateSceneControls();
     getScrollText("ScrollingText");
+    getCasters("caster1", "caster2");
 
     sceneSelect.addEventListener("change", updateSceneControls);
     function updateSceneControls() {
@@ -30,6 +35,53 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    casterSubmit.addEventListener("click", async () => {
+        console.log("hi");
+        const statusEl = document.getElementById("casterStatus");
+        const c1 = document.getElementById("caster1").value.trim();
+        const c2 = document.getElementById("caster2").value.trim();
+
+        if (!c1 || !c2) {
+            statusEl.textContent = "⛔ One or more casters are empty.";
+            return;
+        }
+
+        // disable UI while submitting
+        casterSubmit.disabled = true;
+        statusEl.textContent = "Saving...";
+
+        try {
+            const response = await fetch(`/api/controller/config`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ caster1: c1, caster2: c2 })
+            });
+
+            // log for debugging
+            console.log("POST /api/controller/config status:", response.status);
+
+            if (!response.ok) {
+                // try to read response body for error info
+                let text;
+                try { text = await response.text(); } catch { text = "(no body)"; }
+                throw new Error(`Server returned ${response.status}: ${text}`);
+            }
+
+            // if your server returns JSON, parse it (optional)
+            let json;
+            try { json = await response.json(); } catch (e) { json = null; }
+
+            statusEl.textContent = "✅ Casters updated successfully!";
+            console.log("Server response:", json);
+        } catch (err) {
+            console.error("Failed to update casters:", err);
+            statusEl.textContent = "⚠️ Failed to update casters. See console/network tab.";
+        } finally {
+            casterSubmit.disabled = false;
+        }
+    });
+
 
     startButton.addEventListener("click", async () => {
         const scene = sceneSelect.value;

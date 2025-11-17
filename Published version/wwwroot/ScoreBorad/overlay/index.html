@@ -1,31 +1,24 @@
 ﻿<!DOCTYPE html>
+<link href="sbstyle.css" rel="stylesheet" />
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Unity Overlay</title>
     <script src="overlay.js" defer></script>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
-            background: url('../shared/Assets/Booth/background.png') center center / cover no-repeat;
-        }
-
-        #text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #00ffcc;
-            font-size: 36px;
-            font-family: 'Segoe UI', sans-serif;
-            text-shadow: 0 0 10px #000;
-        }
-    </style>
 </head>
 <body>
-    <div id="text">Loading...</div>
+    <div class="titleBlock">
+        <p class="titleText" id="titleText">RLCS 2025 - OPEN QUAL 1</p>
+    </div>
+    <div class="teamTitleContainer">
+        <div class="blueTitleContainer">
+            <div class="blueTextBG"></div>
+            <div class="blueBorderTop"></div>
+            <div class="blueScoreContainer">
+                <p class="blueScore" id="blueScore">5</p>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>

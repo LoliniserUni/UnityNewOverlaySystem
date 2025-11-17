@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Unity Overlay</title>
-    <script src="overlay.js" defer></script>
+    <script type="module" src="overlay.js?v=<?= time() ?" defer></script>
     <style>
         body {
             margin: 0;
             overflow: hidden;
             width: 100vw;
             height: 100vh;
-            background: url('../shared/Assets/Booth/background.png') center center / cover no-repeat;
+            background: url('../shared/Assets/background.png') center center / cover no-repeat;
         }
 
         #text {
@@ -23,9 +23,240 @@
             font-family: 'Segoe UI', sans-serif;
             text-shadow: 0 0 10px #000;
         }
+
+        .boarder {
+            position: absolute;
+            margin: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            background: url('../shared/Assets/Boarder.png') center center / cover no-repeat;
+            z-index: 10;
+        }
+
+        .marquee {
+            width: 1920px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .track {
+            display: inline-flex;
+            min-width: 200%;
+            animation: marquee 10s linear infinite;
+            will-change: transform;
+        }
+
+            .track span {
+                padding-right: 2rem;
+            }
+
+        
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .scrollText {
+            width: 1884px;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;
+            z-index: 11;
+        }
+
+        .scrollText1, .scrollText2 {
+            display: inline-block;
+            min-width: 1920px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 120px;
+            font-weight: bold;
+            color: #ffff;
+            text-shadow: 0 0 10px #000;
+        }
+        .arrowAnim {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            z-index: 1;
+        }
+
+        .smily1Anim {
+            position: absolute;
+            top: 8%;
+            right: 0%;
+            z-index: 1;
+        }
+
+        .upArrowAnim {
+            position: absolute;
+            top: 60%;
+            right: 5%;
+            z-index: 1;
+        }
+        .scopeAnim {
+            position: absolute;
+            top: 85%;
+            right: 40%;
+            z-index: 1;
+        }
+        .cross1Anim {
+            position: absolute;
+            top: 80%;
+            right: 25%;
+            transform: scale(1.5);
+            z-index: 1;
+        }
+        .heartAnim {
+            position: absolute;
+            top: 85%;
+            right: 0%;
+            z-index: 1;
+        }
+
+        .RIPanim {
+            position: absolute;
+            top: 85%;
+            left: 35%;
+            z-index: 1;
+        }
+        .textBubbleAnim {
+            position: absolute;
+            top: 80%;
+            left: 20%;
+            z-index: 1;
+        }
+        .smily2Anim {
+            position: absolute;
+            top: 79%;
+            left: 0%;
+            z-index: 1;
+        }
+        .cross2Anim {
+            position: absolute;
+            top: 55%;
+            left: 5%;
+            z-index: 1;
+        }
+        .upArrow2Anim {
+            position: absolute;
+            top: 30%;
+            left: 0%;
+            z-index: 1;
+        }
+        .crownAnim {
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            z-index: 1;
+        }
+        .arrow2Anim {
+            position: absolute;
+            top: 18%;
+            left: 25%;
+            z-index: 1;
+        }
+
+        .crownHat {
+            position: absolute;
+            top: 18.5%;
+            right: 7.5%;
+            z-index: 1;
+        }
+
+
+        .caster1 {
+            position: absolute;
+            top: 68%;
+            left: 15%;
+            width: 300px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: Impact;
+            color: #fff;
+            text-shadow: 0 0 10px #000;
+            background: rgba(0,0,0,0.001); 
+            z-index: 5;
+        }
+
+            .caster1 p {
+                margin: 0;
+                padding: 0;
+            }
+
+        .caster2 {
+            position: absolute;
+            top: 68%;
+            right: 15%;
+            width: 300px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: Impact;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px #000;
+            background: rgba(0,0,0,0.001);
+            z-index: 5;
+        }
+
+            .caster2 p {
+                margin: 0;
+                padding: 0;
+            }
+
+
     </style>
 </head>
 <body>
-    <div id="text">Loading...</div>
+    <img class="arrowAnim" id="arrowAnim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="smily1Anim" id="smily1Anim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="upArrowAnim" id="upArrowAnim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="scopeAnim" id="scopeAnim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="cross1Anim" id="cross1Anim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="heartAnim" id="heartAnim" src="../shared/Assets/arrow/12.png" alt="animation">
+
+    <img class="RIPanim" id="RIPanim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="textBubbleAnim" id="textBubbleAnim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="smily2Anim" id="smily2Anim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="cross2Anim" id="cross2Anim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="upArrow2Anim" id="upArrow2Anim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="crownAnim" id="crownAnim" src="../shared/Assets/arrow/12.png" alt="animation">
+    <img class="arrow2Anim" id="arrow2Anim" src="../shared/Assets/arrow/12.png" alt="animation">
+
+    <img class="crownHat" id="crownHat" src="../shared/Assets/crown.png">
+
+    <div id="caster1" class="caster1">
+        <p id="caster1Text">LOLINISER</p>
+    </div>
+    <div id="caster2" class="caster2">
+        <p id="caster2Text">VUDU</p>
+    </div>
+
+    <div class="boarder"></div>
+
+    <div class="scrollText">
+        <div class="marquee">
+            <div class="track">
+                <span class="scrollText1" id="scrollText1">Hello there </span>
+                <span class="scrollText2" id="scrollText2">Hello there </span>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

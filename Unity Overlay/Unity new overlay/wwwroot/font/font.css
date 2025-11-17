@@ -1,0 +1,6 @@
+﻿@font-face {
+    font-family: 'riverbank';
+    src: url('/font/Riverbank.ttf') format('woff2'), url('/font/Riverbank.ttf') format('woff'), url('/font/Riverbank.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
