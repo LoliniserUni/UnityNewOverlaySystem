@@ -8,8 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\font\font.css" />
-    <None Include="wwwroot\font\Riverbank.ttf" />
+    <None Include="wwwroot\GlobalShared\Scripts\Riverbank.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\GlobalShared\assets\teamLogos\" />
   </ItemGroup>
 
 </Project>

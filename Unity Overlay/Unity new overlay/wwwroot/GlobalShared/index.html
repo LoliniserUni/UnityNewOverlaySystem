@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SOS Debug Viewer</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #111;
+            color: #0f0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #0f0;
+        }
+
+        pre {
+            background: #000;
+            padding: 10px;
+            border: 1px solid #0f0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SOS Debug Data Viewer</h1>
+
+    <h2>Game State</h2>
+<pre id="gameState">Waiting...</pre>
+
+    <h2>Players</h2>
+<pre id="players">Waiting...</pre>
+
+    <h2>Teams</h2>
+<pre id="teams">Waiting...</pre>
+
+    <h2>Ball</h2>
+<pre id="ball">Waiting...</pre>
+
+    <h2>Last Events</h2>
+<pre id="events">Waiting...</pre>
+
+<script type="module">
+    import { GameController } from "./objects/GameController.js";
+    import { getData } from "./Scripts/sb.js";
+
+    // create controller instance
+    const controller = new GameController();
+
+    // WebSocket to SOS
+    const socket = new WebSocket("ws://localhost:49122");
+
+    socket.onopen = () => console.log("Connected to SOS");
+
+    socket.onmessage = (msg) => {
+        try {
+            const json = JSON.parse(msg.data);
+            controller.handle(json);
+            updateDebugUI();
+        } catch (e) {
+            console.error("Invalid JSON", e);
+        }
+    };
+
+    // Convert Map to object for display
+    function mapToObj(map) {
+        const obj = {};
+        for (const [k, v] of map.entries()) {
+            if (v.toJSON) obj[k] = v.toJSON(); // if class has toJSON()
+            else obj[k] = v;
+        }
+        return obj;
+    }
+
+    function updateDebugUI() {
+        // Game State
+        document.getElementById("gameState").textContent =
+            JSON.stringify(controller.state || {}, null, 4);
+
+        // Players
+        document.getElementById("players").textContent =
+            JSON.stringify(mapToObj(controller.players), null, 4);
+
+        // Teams
+        document.getElementById("teams").textContent =
+            JSON.stringify(mapToObj(controller.teams), null, 4);
+        // Ball
+        document.getElementById("ball").textContent =
+            JSON.stringify(controller.ball || {}, null, 4);
+
+        // Last Events
+        document.getElementById("events").textContent =
+            JSON.stringify({
+                lastBallHit: controller.lastBallHit,
+                lastStatFeed: controller.lastStatFeed,
+                lastGoal: controller.lastGoal,
+                lastReplayEvent: controller.lastReplayEvent,
+                lastMatchEnded: controller.lastMatchEnded
+            }, null, 4);
+
+        console.log(getData());
+    }
+</script>
+
+</body>
+</html>

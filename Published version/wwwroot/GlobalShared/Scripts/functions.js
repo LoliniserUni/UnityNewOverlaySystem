@@ -70,6 +70,197 @@ export async function getPlayers() {
     }
 }
 
+export async function getTeam1(field) {
+    const scene = "controller";
+
+    try {
+        const res = await fetch(`/api/${scene}/config`);
+        const text = await res.text(); // <-- get raw text
+        console.log("Raw response:", text);
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            console.log("⚠️ Response was not valid JSON.");
+            return;
+        }
+
+        if (data.error) {
+            console.log(`⚠️ ${data.error}`);
+            return;
+        }
+
+        const retText = data.team1;
+
+        console.log(retText);
+
+        document.getElementById(field).value = retText;
+    } catch (err) {
+        console.error(err);
+        console.log("⚠️ Failed to load t1.");
+    }
+}
+
+export async function getTeam2(field) {
+    const scene = "controller";
+
+    try {
+        const res = await fetch(`/api/${scene}/config`);
+        const text = await res.text(); // <-- get raw text
+        console.log("Raw response:", text);
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            console.log("⚠️ Response was not valid JSON.");
+            return;
+        }
+
+        if (data.error) {
+            console.log(`⚠️ ${data.error}`);
+            return;
+        }
+
+        const retText = data.team2;
+
+        console.log(retText);
+
+        document.getElementById(field).value = retText;
+    } catch (err) {
+        console.error(err);
+        console.log("⚠️ Failed to load t2.");
+    }
+}
+
+export async function getTeam1AsText(field) {
+    const scene = "controller";
+
+    try {
+        const res = await fetch(`/api/${scene}/config`);
+        const text = await res.text(); // <-- get raw text
+        console.log("Raw response:", text);
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            console.log("⚠️ Response was not valid JSON.");
+            return;
+        }
+
+        if (data.error) {
+            console.log(`⚠️ ${data.error}`);
+            return;
+        }
+
+        const retText = data.team1;
+
+        console.log(retText);
+
+        return retText;
+    } catch (err) {
+        console.error(err);
+        console.log("⚠️ Failed to load t1.");
+    }
+}
+
+export async function getGameNumAsText() {
+    const scene = "controller";
+
+    try {
+        const res = await fetch(`/api/${scene}/config`);
+        const text = await res.text(); // <-- get raw text
+        console.log("Raw response:", text);
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            console.log("⚠️ Response was not valid JSON.");
+            return;
+        }
+
+        if (data.error) {
+            console.log(`⚠️ ${data.error}`);
+            return;
+        }
+
+        const retText = data.totalGames;
+
+        console.log(retText);
+
+        return retText;
+    } catch (err) {
+        console.error(err);
+        console.log("⚠️ Failed to load t1.");
+    }
+}
+
+export async function getTitleAsText() {
+    const scene = "controller";
+
+    try {
+        const res = await fetch(`/api/${scene}/config`);
+        const text = await res.text(); // <-- get raw text
+        console.log("Raw response:", text);
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            console.log("⚠️ Response was not valid JSON.");
+            return;
+        }
+
+        if (data.error) {
+            console.log(`⚠️ ${data.error}`);
+            return;
+        }
+
+        const retText = data.title;
+
+        console.log(retText);
+
+        return retText;
+    } catch (err) {
+        console.error(err);
+        console.log("⚠️ Failed to load t1itile.");
+    }
+}
+
+export async function getTeam2AsText() {
+    const scene = "controller";
+
+    try {
+        const res = await fetch(`/api/${scene}/config`);
+        const text = await res.text(); // <-- get raw text
+        console.log("Raw response:", text);
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            console.log("⚠️ Response was not valid JSON.");
+            return;
+        }
+
+        if (data.error) {
+            console.log(`⚠️ ${data.error}`);
+            return;
+        }
+
+        const retText = data.team2;
+
+        console.log(retText);
+
+        return retText;
+    } catch (err) {
+        console.error(err);
+        console.log("⚠️ Failed to load t2.");
+    }
+}
 export async function getScrollText(field) {
     const scene = "controller";
 

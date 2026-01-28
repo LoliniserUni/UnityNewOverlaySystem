@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unity Stream Controller</title>
+    <script type="module" src="controller.js" defer></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background: #222;
+            color: white;
+        }
+
+        input, button, select {
+            margin: 5px 0;
+        }
+
+        .scene-controls {
+            display: none; /* hide by default */
+        }
+
+        .scene-controls.active {
+            display: block; /* show active scene */
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Unity Overlay Controller</h1>
+
+    <div class="teamNames">
+        <div>
+            <div>
+                <input type="text" id="t1Name" placeholder="Enter team name" />
+                <input type="file" id="t1Image" />
+                <button id="saveT1">Save Team 1 Logo</button>
+                <img id="team1LogoPreview" style="width: 160px; height: 160px" />
+
+            </div>
+        </div>
+        <div>
+            <div>
+                <input type="text" id="t2Name" placeholder="Enter team name" />
+                <input type="file" id="t2Image" />
+                <button id="saveT2">Save Team 2 Logo</button>
+                <img id="team2LogoPreview" style="width: 160px; height: 160px" />
+
+            </div>
+        </div>
+
+        <div>
+            <button id="swapTeams">Swap Teams</button>
+        </div>
+        
+        <div>
+            <input type="number" id="numGames" placeholder="number of games" />
+            <button id="saveGames">Save Games</button>
+        </div>
+
+        <div>
+            <input type="text" id="titleInput" placeholder="title" />
+            <button id="titleSave">Save title</button>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,5 +1,9 @@
 ﻿
 
+:root {
+    --sb-text-shadow: 6px 6px 5px rgba(0 0 0 0.5);
+}
+
 body {
     margin: 0;
     overflow: hidden;
@@ -15,14 +19,31 @@ body {
     color: #00ffcc;
     font-size: 36px;
     font-family: 'Segoe UI', sans-serif;
-    text-shadow: 0 0 10px #000;
+    text-shadow: var(--sb-text-shadow);
 }
 
-.scoreBoard {
+.sb-scoreBoard {
     position: absolute;
     width: 1920px;
     height: 1080px;
-    background: linear-gradient(to top,#0076ba,#001523);
+    background-image: url('../../GlobalShared/background (temp)/Canvas_mockup_003.png');
+    background-size: 100% 100%; /* scale image to container size */
+    background-repeat: no-repeat;
+
+    filter: blur(15px); /* adjust radius */
+}
+.sb-backgroundGradient {
+    position: absolute;
+    width: 1920px;
+    height: 1080px;
+    background: linear-gradient(to top,#004268,#000c21);
+    opacity: 0.3;
+}
+
+.sb-scoreBoardHolder {
+    position: absolute;
+    width: 1920px;
+    height: 1080px;
 }
 
 /*global variables*/
@@ -31,42 +52,43 @@ body {
     --OrangeCol: #ff6d00;
 }
 /*title block*/
-.titleBlock {
+.sb-titleBlock {
     position: absolute;
     width: 1920px;
     height: 50px;
     background: linear-gradient(to left, #352400, #000 25%, #000 75%, #03002E 100% );
 }
 
-.titleText {
+.sb-titleText {
     position: absolute;
     text-align: center;
     width: 1920px;
     font-family: Impact;
     color: white;
-    font-size:36px;
+    text-shadow: var(--sb-text-shadow);
+    font-size: 36px;
     transform: translate(0px, -70%);
 }
 
-.teamTitleContainer {
+.sb-teamTitleContainer {
     position: absolute;
     width: 1920px;
     height: 90px;
 }
 /*Blue scoreboard*/
-.blueTitleContainer {
+.sb-blueTitleContainer {
     position: absolute;
     transform: translate(0px, 50px);
     width: 900px;
     height: 90px;
 }
-.blueBorderTop {
+.sb-blueBorderTop {
     position: absolute;
     width: 90%;
     height: 10px;
     background-color: var(--BlueCol);
 }
-.blueScoreContainer {
+.sb-blueScoreContainer {
     position: absolute;
     width: 80px;
     height: 80px;
@@ -75,14 +97,14 @@ body {
     left: 800px;
     align-items: center;
 }
-.blueTextBG {
+.sb-blueTextBG {
     position: absolute;
     width: 800px;
     height: 90px;
     background: linear-gradient(to right, #0059aea1, #00000000);
     align-items: center;
 }
-.blueScore {
+.sb-blueScore {
     position: absolute;
     height: 80px;
     width: 80px;
@@ -90,10 +112,11 @@ body {
     left: 28px;
     align-content: center;
     font-family: Impact;
+    text-shadow: var(--sb-text-shadow);
     font-size: 50px;
     color: white;
 }
-.blueName {
+.sb-blueName {
     position: absolute;
     text-align: right;
     top: -45px;
@@ -103,18 +126,17 @@ body {
     color: white;
     width: 800px;
 }
-.blueLogo {
+.sb-blueLogo {
     position: absolute;
     top: 15px;
     left: 5px;
     width: 70px;
     height: 70px;
-    background-color: white;
 }
 
 
 /*Orange scoreboard*/
-.orangeTitleContainer {
+.sb-orangeTitleContainer {
     position: absolute;
     transform: translate(0px, 50px);
     right: 0px;
@@ -122,7 +144,7 @@ body {
     height: 90px;
 }
 
-.orangeBorderTop {
+.sb-orangeBorderTop {
     position: absolute;
     width: 90%;
     right:0px;
@@ -130,7 +152,7 @@ body {
     background-color: var(--OrangeCol);
 }
 
-.orangeScoreContainer {
+.sb-orangeScoreContainer {
     position: absolute;
     width: 80px;
     height: 80px;
@@ -140,7 +162,7 @@ body {
     align-items: center;
 }
 
-.orangeTextBG {
+.sb-orangeTextBG {
     position: absolute;
     width: 800px;
     height: 90px;
@@ -149,7 +171,7 @@ body {
     align-items: center;
 }
 
-.orangeScore {
+.sb-orangeScore {
     position: absolute;
     height: 80px;
     width: 80px;
@@ -157,11 +179,12 @@ body {
     left: 28px;
     align-content: center;
     font-family: Impact;
+    text-shadow: var(--sb-text-shadow);
     font-size: 50px;
     color: white;
 }
 
-.orangeName {
+.sb-orangeName {
     position: absolute;
     text-align: left;
     top: -45px;
@@ -172,17 +195,16 @@ body {
     width: 800px;
 }
 
-.orangeLogo {
+.sb-orangeLogo {
     position: absolute;
     top: 15px;
     right: 5px;
     width: 70px;
     height: 70px;
-    background-color: white;
 }
 
 /*Centre of score board (game text)*/
-.gameTextContainer {
+.sb-gameTextContainer {
     position: absolute;
     left: 45%;
     top: 50px;
@@ -191,31 +213,32 @@ body {
     height: 80px;
 }
 
-.gameNumberText {
+.sb-gameNumberText {
     position: absolute;
     width: 200px;
     height: 80px;
-
     top: -30px;
     left: 25%;
     font-family: Impact;
+    text-shadow: var(--sb-text-shadow);
     font-size: 36px;
     color: white;
 }
 
-.totalGamesText {
+.sb-totalGamesText {
     position: absolute;
     width: 200px;
     height: 80px;
     top: 30px;
     left: 45%;
     font-family: Impact;
+    text-shadow: var(--sb-text-shadow);
     font-size: 20px;
     color: white;
 }
 
 /*Game Stats*/
-.gameStatsContainer{
+.sb-gameStatsContainer{
     position: absolute;
     width: 100%;
     height: 880px;
@@ -225,20 +248,20 @@ body {
     top: 200px;
 }
 
-.playerListContainer{
+.sb-playerListContainer{
     position: absolute;
     width: 100%; 
     height: 125px;
 }
 
-.box {
+.sb-box {
     position: absolute;
     width: 90%;
     height: 100px;
     top: 0px;
 }
 
-.blueHalf {
+.sb-blueHalf {
     position: absolute;
     width: 50%;
     height: 100%;
@@ -246,14 +269,14 @@ body {
     left: -10%;
 }
 
-.orangeHalf {
+.sb-orangeHalf {
     position: absolute;
     width: 50%;
     height: 100%;
     right: -10%;
 }
 
-.blueNamesLine {
+.sb-blueNamesLine {
     position:absolute;
 
     width: 100%;
@@ -263,7 +286,7 @@ body {
     background-color: var(--BlueCol);
 }
 
-.orangeNamesLine {
+.sb-orangeNamesLine {
     position: absolute;
     width: 100%;
     height: 5px;
@@ -271,7 +294,7 @@ body {
     background-color: var(--OrangeCol);
 }
 
-.blueNamesBackground {
+.sb-blueNamesBackground {
     position: absolute;
     width: 5px;
     height: 100%;
@@ -283,7 +306,7 @@ body {
     background: linear-gradient(#00000000, var(--BlueCol));
 }
 
-.orangeNamesBackground {
+.sb-orangeNamesBackground {
     position: absolute;
     width: 5px;
     height: 100%;
@@ -292,49 +315,50 @@ body {
     background: linear-gradient(#00000000, var(--OrangeCol));
 }
 
-.blueGridContainer {
+.sb-blueGridContainer {
     position: absolute;
     width: 70%;
     right: 0px;
     bottom: 0px;
 }
 
-.orangeGridContainer {
+.sb-orangeGridContainer {
     position: absolute;
     width: 70%;
     left: 0px;
     bottom: 0px;
 }
 
-.grid {
+.sb-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 
-.bluePlayer {
+.sb-bluePlayer {
     height: 100%;
     width: 100%;
-
     text-align: center;
-
     font-family: Impact;
+    text-shadow: var(--sb-text-shadow);
     font-size: 36px;
     color: white;
 }
 
-.sbLine {
+.sb-sbLine {
     position: absolute;
     height: 5px;
     width: 100%;
     bottom: 0px;
-    background-color: #000c21;
+    background: linear-gradient( to right, #002a53 0%, #002a53 50%, #572500 50%, #572500 100% );
 }
 
-.centreTitle {
+
+.sb-centreTitle {
     width: 100%;
     position: absolute;
     font-family: Impact;
+    text-shadow: var(--sb-text-shadow);
     font-size: 36px;
     color: white;
     left: 0%;
@@ -343,7 +367,7 @@ body {
 }
 
 /*Score*/
-.scoreBox {
+.sb-scoreBox {
     position: absolute;
     width: 90%;
     height: 100px;
@@ -352,7 +376,7 @@ body {
 }
 
 /*goals*/
-.goalsBox {
+.sb-goalsBox {
     position: absolute;
     width: 90%;
     height: 100px;
@@ -360,7 +384,7 @@ body {
 }
 
 /*assists*/
-.assistsBox {
+.sb-assistsBox {
     position: absolute;
     width: 90%;
     height: 100px;
@@ -368,14 +392,14 @@ body {
 }
 
 /*shots*/
-.shotsBox {
+.sb-shotsBox {
     position: absolute;
     width: 90%;
     height: 100px;
     top: 425px;
 }
 /*saves*/
-.savesBox {
+.sb-savesBox {
     position: absolute;
     width: 90%;
     height: 100px;
@@ -383,7 +407,7 @@ body {
 }
 
 /*touches*/
-.touchesBox {
+.sb-touchesBox {
     position: absolute;
     width: 90%;
     height: 100px;
@@ -391,7 +415,7 @@ body {
 }
 
 /*demo*/
-.demoBox {
+.sb-demoBox {
     position: absolute;
     width: 90%;
     height: 100px;
@@ -400,26 +424,32 @@ body {
 
 
 
-.centreLine {
+.sb-centreLine {
     position: absolute;
     width: 200px;
     height: 40px;
-    bottom: 50%;
+    bottom: 100%;
     left: 50%;
     transform: translate(-50%,50%);
 
     overflow: hidden;
 }
 
-.centreLineBlue {
+.sb-lineObject {
+    position: relative; /* key part */
+    width: 100%;
+    height: 100%;
+}
+
+.sb-centreLineBlue {
     position: absolute;
     width: 200px;
     height: 10px;
-    bottom: 15px ;
+    bottom: 15px;
     left: -100px;
     background-color: var(--BlueCol);
 }
-.centreLineOrange {
+.sb-centreLineOrange {
     position: absolute;
     width: 200px;
     height: 10px;
@@ -427,11 +457,13 @@ body {
     right: -100px;
     background-color: var(--OrangeCol);
 }
-.centreLineCentre {
+.sb-centreLineCentre {
     position: absolute;
     width: 5px;
     height: 40px;
     bottom: 0px;
     left: 97.5px;
-    background-color: #000c21;
+    background-color: #000;
+    box-shadow: 10px 0px 14px #ff6d00, 
+        -20px 0px 14px #0082ff;
 }

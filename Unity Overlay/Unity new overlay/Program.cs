@@ -151,5 +151,86 @@ app.MapGet("/api/{scene}/timer", (string scene) =>
     });
 });
 
+// ---------- FILE UPLOAD (TEAM LOGO) ----------
+
+app.MapPost("/api/upload/teamLogo/{teamId}", async (HttpContext ctx, string teamId) =>
+{
+    var form = await ctx.Request.ReadFormAsync();
+
+    if (!form.Files.Any())
+        return Results.BadRequest(new { error = "No file uploaded" });
+
+    var file = form.Files[0];
+
+    // Optional: validate image type
+    var allowedTypes = new[] { "image/png", "image/jpeg" };
+    if (!allowedTypes.Contains(file.ContentType))
+        return Results.BadRequest(new { error = "Invalid image type" });
+
+    // Create folder if needed
+    var logoFolder = Path.Combine(app.Environment.WebRootPath, "TeamLogos");
+    if (!Directory.Exists(logoFolder))
+        Directory.CreateDirectory(logoFolder);
+
+    // Keep original extension
+    var ext = Path.GetExtension(file.FileName);
+    var saveName = $"team_{teamId}_logo{ext}";
+    var savePath = Path.Combine(logoFolder, saveName);
+
+    // Save file
+    using (var stream = File.Create(savePath))
+    {
+        await file.CopyToAsync(stream);
+    }
+
+    // Public URL (for <img src="...">)
+    var publicUrl = $"/TeamLogos/{saveName}";
+
+    return Results.Json(new
+    {
+        uploaded = true,
+        teamId,
+        url = publicUrl
+    });
+});
+
+// Swap team logo images: team_1_logo.png <-> team_2_logo.png
+app.MapPost("/api/upload/swapTeamLogos", () =>
+{
+    string folder = Path.Combine(app.Environment.WebRootPath, "TeamLogos");
+
+    string t1 = Path.Combine(folder, "team_1_logo.png");
+    string t2 = Path.Combine(folder, "team_2_logo.png");
+    string temp = Path.Combine(folder, "team_temp_swap.png");
+
+    // Ensure folder exists
+    if (!Directory.Exists(folder))
+        return Results.Json(new { error = "Logo folder not found" });
+
+    // Ensure both logo files exist
+    if (!File.Exists(t1) || !File.Exists(t2))
+        return Results.Json(new { error = "One or both logo files missing" });
+
+    try
+    {
+        // Swap files safely using a temp file
+        File.Move(t1, temp, true);
+        File.Move(t2, t1, true);
+        File.Move(temp, t2, true);
+
+        return Results.Json(new { swapped = true });
+    }
+    catch (Exception ex)
+    {
+        return Results.Json(new
+        {
+            swapped = false,
+            error = "Swap failed",
+            detail = ex.Message
+        });
+    }
+});
+
+
 // ---------- RUN ----------
 app.Run("http://localhost:5000");

@@ -1,0 +1,114 @@
+﻿.boarderWithText {
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background: url('assets/textBorder.png') center center / cover no-repeat;
+    z-index: 10;
+}
+
+.boarder {
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background: url('assets/boarder.png') center center / cover no-repeat;
+    z-index: 10;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    width: 1920px;
+    height: 1080px;
+}
+
+.screenSize {
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+    width: 1920px;
+    height: 1080px;
+    z-index: 1;
+}
+
+#text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ffcc;
+    font-size: 36px;
+    font-family: 'Segoe UI', sans-serif;
+    text-shadow: 0 0 10px #000;
+}
+
+
+
+.marquee {
+    width: 1920px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.track {
+    display: inline-flex;
+    min-width: 200%;
+    animation: marquee 30s linear infinite;
+    will-change: transform;
+}
+
+    .track span {
+        padding-right: 2rem;
+    }
+
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.scrollText {
+    width: 1884px;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    z-index: 11;
+}
+
+.scrollText1, .scrollText2 {
+    display: inline-block;
+    min-width: 1920px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 120px;
+    font-weight: bold;
+    color: #ffff;
+    text-shadow: 0 0 10px #000;
+}
+
+#timerText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #0075B9;
+    font-size: 60px;
+    font-family: Impact;
+    text-shadow: 0 0 10px #000;
+}
+
+@font-face {
+    font-family: 'riverbank';
+    src: url('/font/Riverbank.ttf') format('woff2'), url('/font/Riverbank.ttf') format('woff'), url('/font/Riverbank.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

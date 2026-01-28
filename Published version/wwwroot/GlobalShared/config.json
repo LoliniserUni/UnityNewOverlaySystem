@@ -1,11 +1,15 @@
 {
-  "scrollText": "RLCS 2026 - OPEN QUAL 1",
+  "scrollText": "RLCS SSA 2026 - OPEN QUAL 3 - UNITY ESPORTS - SWISS STAGE -",
   "players": [
     "FRICTION",
     "LACKSTAR",
     "SCHALKG",
-    "SPONS"
+    "COZY"
   ],
-  "caster1": "VUDU",
-  "caster2": "GOAT"
+  "caster1": "LOLINISER",
+  "caster2": "RESERVEWOLF",
+  "team1": "WRG",
+  "team2": "Unity Esports",
+  "totalGames": "5",
+  "title": "UNITY ESPORTS"
 }

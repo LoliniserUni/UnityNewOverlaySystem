@@ -1,11 +1,15 @@
 {
-  "scrollText": "HELLO",
+  "scrollText": "RLCS SSA 2026 - OPEN QUAL 1 - TEAM UNITY -",
   "players": [
-    "VUDU",
-    "LOLI",
-    "LACKS",
-    "GOATS"
+    "FRICTION",
+    "LACKSTAR",
+    "SCHALKG",
+    "SPONS"
   ],
-  "caster1": "LOLINISER",
-  "caster2": "WILDEYED"
+  "caster1": "RESERVEWOLF",
+  "caster2": "CHAR",
+  "team1": "OTHER",
+  "team2": "UNITY ESPORTS",
+  "totalGames": "7",
+  "title": "UNITY ESPORTS"
 }
