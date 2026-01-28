@@ -29,20 +29,23 @@ export class GameController {
         this.lastReplayEvent = null;
         this.lastMatchEnded = null;
 
+        this.winnerDecided = false;
+
         this.initialized = false;
         this.matchCreatedTime = null;
 
         this.lastTime = 0;
 
+        this.lastMatchGuid = 0; 
         this.gameNumber = 0;
+
+        this.currentPlayerID = 0;
     }
 
     // ------------------------------------------------------------
     // MAIN ENTRY POINT — call this with every SOS WebSocket message
     // ------------------------------------------------------------
     handle(rawJson) {
-        
-
         if (!rawJson) return;
 
         // Version
@@ -56,20 +59,32 @@ export class GameController {
         // GAME UPDATE STATE
         // ---------------------
         if (rawJson.event == "game:update_state") {
+
+            //console.log(rawJson);
             const gameData = rawJson.data.game;
+
+            //console.log(rawJson.data);
             const playerData = rawJson.data.players;
+
+            this.currentPlayerID = gameData.target;
 
             if (!this.state) this.state = new GameState(gameData);
             else this.state.update(gameData);
             
             this.updateTeams(gameData.teams);
-            
+            this.calcWinner(gameData);
             this.updateBall(gameData.ball);
             this.updatePlayers(playerData);
 
-            // detect new game
-            if (gameData.time_seconds == 300 && gameData.time_seconds > this.lastTime) {
+            // --- New: detect a new match by match_guid ---
+            if (rawJson.data.match_guid && rawJson.data.match_guid !== this.lastMatchGuid) {
+                this.lastMatchGuid = rawJson.data.match_guid;
                 this.gameNumber++;
+
+                this.lastMatchEnded = null;
+
+                this.state.winnerDecided = false;
+                //console.log("New match detected! Game number:", this.gameNumber);
             }
 
             this.lastTime = gameData.time_seconds;
@@ -79,7 +94,6 @@ export class GameController {
         // EVENTS
         // -------------------
 
-        if (rawJson.event == "game:ball_hit") this.lastBallHit = new Event_BallHit(rawJson.data);
         if (rawJson.event == "game:statfeed_event") this.lastStatFeed = new Event_StatsFeed(rawJson.data);
         if (rawJson.event == "game:goal_scored") this.lastGoal = new Event_GoalScored(rawJson.data);
         if (rawJson.event == "game:replay_start") this.lastReplayEvent = new ReplayEvent(rawJson.data);
@@ -87,6 +101,18 @@ export class GameController {
         if (rawJson.event == "game:replay_will_end") this.lastReplayEvent = new ReplayEvent(rawJson.data);
         if (rawJson.event == "game:match_ended") this.lastMatchEnded = new Event_MatchEnded(rawJson.data);
 
+    }
+
+    calcWinner(gameData) {
+        if (gameData.hasWinner && this.state.winnerDecided == false) {
+            this.state.winnerDecided = true;
+
+            const blueTeam = this.teams.get("0");
+            const orangeTeam = this.teams.get("1");
+
+            if (blueTeam.score >> orangeTeam.score) blueTeam.gameWins++;
+            else orangeTeam.gameWins++;
+        }
     }
 
     setPlayerTotals() {
@@ -122,31 +148,74 @@ export class GameController {
     // ------------------------------------------------------------
     // PLAYER MANAGEMENT
     // ------------------------------------------------------------
-    updatePlayers(playersJson) {
+    updatePlayers(playersJson, maxPlayersPerTeam = 4) {
         if (!playersJson) return;
 
+        const currentPlayerNames = new Set();
+
+        // Temporary map of teamId → array of players to assign this update
+        const teamAssignments = {};
+
+        // Initialize team assignments
+        for (const [teamId] of this.teams.entries()) {
+            teamAssignments[teamId] = new Array(maxPlayersPerTeam).fill(null);
+        }
+
+        // 1️⃣ Add/update players based on name
         for (const id of Object.keys(playersJson)) {
             const data = playersJson[id];
+            const name = data.name;
+            currentPlayerNames.add(name);
 
-            let player = this.players.get(id);
+            // Find existing player by name
+            let player = [...this.players.values()].find(p => p.name === name);
 
             if (!player) {
                 player = new Player(data);
-                this.players.set(id, player);
+                this.players.set(name, player);
             } else {
                 player.updatePlayer(data);
             }
 
-            // 🔥 ALWAYS ensure team assignment is correct
+            // Assign player to team array at the first empty slot
             const teamId = "" + data.team;
-            const team = this.teams.get(teamId);
+            const teamArray = teamAssignments[teamId];
 
-            if (team && !team.players.includes(player)) {
-                // Player is new to this team OR re-added after match
-                team.addPlayer(player);
+            for (let i = 0; i < teamArray.length; i++) {
+                if (!teamArray[i]) {
+                    teamArray[i] = player;
+                    break;
+                }
+            }
+        }
+
+        // 2️⃣ Update actual team objects
+        for (const [teamId, team] of this.teams.entries()) {
+            const newPlayers = teamAssignments[teamId];
+
+            // Remove players who are no longer in this team
+            team.players = [];
+
+            for (let i = 0; i < newPlayers.length; i++) {
+                const player = newPlayers[i];
+                if (player) team.addPlayer(player);
+            }
+        }
+
+        // 3️⃣ Remove players who are no longer present
+        for (const [name, player] of this.players.entries()) {
+            if (!currentPlayerNames.has(name)) {
+                // Remove from all teams
+                for (const [teamId, team] of this.teams.entries()) {
+                    const index = team.players.indexOf(player);
+                    if (index !== -1) team.players.splice(index, 1);
+                }
+                this.players.delete(name);
             }
         }
     }
+
+
 
 
     // ------------------------------------------------------------
@@ -157,3 +226,4 @@ export class GameController {
         this.ball.update(ballJson);
     }
 }
+

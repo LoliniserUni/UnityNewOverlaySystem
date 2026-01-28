@@ -4,7 +4,6 @@
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
 
         let data;
         try {
@@ -41,7 +40,6 @@ export async function getPlayers() {
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
 
         let data;
         try {
@@ -76,7 +74,6 @@ export async function getTeam1(field) {
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
 
         let data;
         try {
@@ -93,7 +90,6 @@ export async function getTeam1(field) {
 
         const retText = data.team1;
 
-        console.log(retText);
 
         document.getElementById(field).value = retText;
     } catch (err) {
@@ -108,7 +104,6 @@ export async function getTeam2(field) {
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
 
         let data;
         try {
@@ -125,8 +120,6 @@ export async function getTeam2(field) {
 
         const retText = data.team2;
 
-        console.log(retText);
-
         document.getElementById(field).value = retText;
     } catch (err) {
         console.error(err);
@@ -140,7 +133,6 @@ export async function getTeam1AsText(field) {
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
 
         let data;
         try {
@@ -157,8 +149,6 @@ export async function getTeam1AsText(field) {
 
         const retText = data.team1;
 
-        console.log(retText);
-
         return retText;
     } catch (err) {
         console.error(err);
@@ -172,7 +162,6 @@ export async function getGameNumAsText() {
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
 
         let data;
         try {
@@ -189,8 +178,6 @@ export async function getGameNumAsText() {
 
         const retText = data.totalGames;
 
-        console.log(retText);
-
         return retText;
     } catch (err) {
         console.error(err);
@@ -204,7 +191,6 @@ export async function getTitleAsText() {
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
 
         let data;
         try {
@@ -221,8 +207,6 @@ export async function getTitleAsText() {
 
         const retText = data.title;
 
-        console.log(retText);
-
         return retText;
     } catch (err) {
         console.error(err);
@@ -236,7 +220,6 @@ export async function getTeam2AsText() {
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
 
         let data;
         try {
@@ -253,8 +236,6 @@ export async function getTeam2AsText() {
 
         const retText = data.team2;
 
-        console.log(retText);
-
         return retText;
     } catch (err) {
         console.error(err);
@@ -267,8 +248,6 @@ export async function getScrollText(field) {
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
-
         let data;
         try {
             data = JSON.parse(text);
@@ -284,8 +263,6 @@ export async function getScrollText(field) {
 
         const retText = data.scrollText;
 
-        console.log(retText);
-
         document.getElementById(field).value = retText;
     } catch (err) {
         console.error(err);
@@ -299,7 +276,6 @@ export async function getCasters(field1, field2) {
     try {
         const res = await fetch(`/api/${scene}/config`);
         const text = await res.text(); // <-- get raw text
-        console.log("Raw response:", text);
 
         let data;
         try {
@@ -316,15 +292,53 @@ export async function getCasters(field1, field2) {
 
         const c1 = data.caster1;
 
-        console.log(c1);
 
         document.getElementById(field1).value = c1;
 
         const c2 = data.caster2;
 
-        console.log(c2);
 
         document.getElementById(field2).value = c2;
+    } catch (err) {
+        console.error(err);
+        console.log("⚠️ Failed to load roster.");
+    }
+}
+
+export async function get3Casters(field1, field2, field3) {
+    const scene = "controller";
+
+    try {
+        const res = await fetch(`/api/${scene}/config`);
+        const text = await res.text(); // <-- get raw text
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            console.log("⚠️ Response was not valid JSON.");
+            return;
+        }
+
+        if (data.error) {
+            console.log(`⚠️ ${data.error}`);
+            return;
+        }
+
+        const c1 = data.caster1;
+
+
+        document.getElementById(field1).value = c1;
+
+        const c2 = data.caster2;
+
+
+        document.getElementById(field2).value = c2;
+
+        const c3 = data.caster3;
+
+
+        document.getElementById(field3).value = c3;
     } catch (err) {
         console.error(err);
         console.log("⚠️ Failed to load roster.");

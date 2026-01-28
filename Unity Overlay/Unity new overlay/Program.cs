@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -231,6 +232,23 @@ app.MapPost("/api/upload/swapTeamLogos", () =>
     }
 });
 
+var url = "http://localhost:5000";
+
+
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+try
+{
+    Process.Start(new ProcessStartInfo
+    {
+        FileName = url,
+        UseShellExecute = true
+    });
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Could not open browser: {ex.Message}");
+}
 
 // ---------- RUN ----------
-app.Run("http://localhost:5000");
+app.Run(url);
+

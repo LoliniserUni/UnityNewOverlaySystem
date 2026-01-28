@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unity Esports Team Stream WebApp Info</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e2f;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #2a2a3f;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            color: #ffd166;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 1em;
+        }
+
+        .important-note {
+            background: #ef476f;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        a {
+            color: #06d6a0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        .scene-desc {
+            font-weight: normal;
+            color: #cccccc;
+            margin-left: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unity Esports Team Stream WebApp</h1>
+
+        <div class="important-note">
+            <p>Important:</p>
+            <ul>
+                <li>To use this, you require <a href="https://bakkesplugins.com" target="_blank">BakkesMod</a></li>
+                <li>And the <a href="https://gitlab.com/bakkesplugins/sos/sos-plugin" target="_blank">SOS plugin</a></li>
+                <li>I recommend setting the SOS plugin to send data every 30ms (controlled through BakkesMod)</li>
+            </ul>
+        </div>
+
+        <p>Contact me on <strong>Discord: loliniser</strong></p>
+        <p>To use in OBS, create a browser source with dimensions <strong>1920x1080</strong> and use the URL for any of the scenes below:</p>
+        <ul>
+            <li>
+                <a href="http://localhost:5000/Booth/overlay" target="_blank">http://localhost:5000/Booth/overlay</a>
+                <span class="scene-desc">- Normal 2 caster booth scene</span>
+            </li>
+            <li>
+                <a href="http://localhost:5000/Booth3/overlay" target="_blank">http://localhost:5000/Booth3/overlay</a>
+                <span class="scene-desc">- 3 caster / interview scene</span>
+            </li>
+            <li>
+                <a href="http://localhost:5000/BRB/overlay" target="_blank">http://localhost:5000/BRB/overlay</a>
+                <span class="scene-desc">- Be Right Back scene</span>
+            </li>
+            <li>
+                <a href="http://localhost:5000/Starting/overlay" target="_blank">http://localhost:5000/Starting/overlay</a>
+                <span class="scene-desc">- Starting Scene</span>
+            </li>
+            <li>
+                <a href="http://localhost:5000/Ending/overlay" target="_blank">http://localhost:5000/Ending/overlay</a>
+                <span class="scene-desc">- Ending Scene</span>
+            </li>
+            <li>
+                <a href="http://localhost:5000/ScoreBoard/overlay" target="_blank">http://localhost:5000/ScoreBoard/overlay</a>
+                <span class="scene-desc">- Post match Scoreboard scene</span>
+            </li>
+            <li>
+                <a href="http://localhost:5000/InGame/overlay" target="_blank">http://localhost:5000/InGame/overlay</a>
+                <span class="scene-desc">- In game overlay (refresh source between series)</span>
+            </li>
+            <li>
+                <a href="http://localhost:5000/controller" target="_blank">http://localhost:5000/controller</a>
+                <span class="scene-desc">- General scene settings controller</span>
+            </li>
+            <li>
+                <a href="http://localhost:5000/gameController" target="_blank">http://localhost:5000/gameController</a>
+                <span class="scene-desc">- Match related settings controller</span>
+            </li>
+        </ul>
+        <div class="footer">
+            &copy; Unity Esports Team
+        </div>
+    </div>
+</body>
+</html>

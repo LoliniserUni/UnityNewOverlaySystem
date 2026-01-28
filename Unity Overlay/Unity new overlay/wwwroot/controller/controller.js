@@ -1,5 +1,5 @@
 ﻿import { startTimer } from "/GlobalShared/scripts/timer.js";
-import { loadPlayers, getScrollText, getCasters} from "/GlobalShared/scripts/functions.js";
+import { loadPlayers, getScrollText, get3Casters } from "/GlobalShared/scripts/functions.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const sceneSelect = document.getElementById("sceneSelect");
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPlayers("Player1", "Player2", "Player3", "Player4");
     updateSceneControls();
     getScrollText("ScrollingText");
-    getCasters("caster1", "caster2");
+    get3Casters("caster1", "caster2", "caster3");
 
     sceneSelect.addEventListener("change", updateSceneControls);
     function updateSceneControls() {
@@ -41,8 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const statusEl = document.getElementById("casterStatus");
         const c1 = document.getElementById("caster1").value.trim();
         const c2 = document.getElementById("caster2").value.trim();
+        const c3 = document.getElementById("caster3").value.trim();
 
-        if (!c1 || !c2) {
+        if (!c1 || !c2 || !c3) {
             statusEl.textContent = "⛔ One or more casters are empty.";
             return;
         }
@@ -55,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch(`/api/controller/config`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ caster1: c1, caster2: c2 })
+                body: JSON.stringify({ caster1: c1, caster2: c2, caster3: c3 })
             });
 
             // log for debugging

@@ -43,6 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
             fitText(caster2);
         }
 
+        console.log(config.caster3);
+        if (config.caster3 === "" || config.caster3 == null || config.caster3 === caster3.textContent) {
+            // do nothing
+        } else {
+            caster3.textContent = config.caster3;
+            fitText(caster3);
+        }
+
     });
 });
 

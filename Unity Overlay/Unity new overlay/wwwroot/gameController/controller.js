@@ -1,62 +1,38 @@
 ﻿import { getTeam1, getTeam2, getTitleAsText, getGameNumAsText } from "/GlobalShared/scripts/functions.js";
 
-document.getElementById("team1LogoPreview").src = "../../TeamLogos/team_1_logo.png";
 getTeam1("t1Name");
 getTeam2("t2Name");
+loadLogo("team1LogoPreview", "../../TeamLogos/team_1_logo.png");
+loadLogo("team2LogoPreview", "../../TeamLogos/team_2_logo.png");
+
+
 document.getElementById("titleInput").value = "" + await getTitleAsText();
 document.getElementById("numGames").value = await getGameNumAsText();
+function updateLogo(imgId, url) {
+    document.getElementById(imgId).src = `${url}?v=${Date.now()}`;
+}
+function loadLogo(imgId, basePath) {
+    document.getElementById(imgId).src =
+        `${basePath}?v=${Date.now()}`;
+}
 
-document.getElementById("saveGames").addEventListener("click", async () => {
-    const totalGamesInput = document.getElementById("numGames").value;
-
-    try {
-        const response = await fetch(`/api/controller/config`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ totalGames: totalGamesInput })
-        });
-
-        if (!response.ok) throw new Error("Server error");
-    } catch (err) {
-        console.error(err);
-    }
-});
-
-document.getElementById("titleSave").addEventListener("click", async () => {
-    try {
-        const response = await fetch(`/api/controller/config`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title: document.getElementById("titleInput").value })
-        });
-    } catch (err) {
-        console.error(err);
-    }
-});
+// Save Team 1
 document.getElementById("saveT1").addEventListener("click", async () => {
-    
+    const status = document.getElementById("team1Status");
     const fileInput = document.getElementById("t1Image");
     const team1NameInput = document.getElementById("t1Name");
-    
-    const file = fileInput.files[0];
-    if (file) {
 
-        console.log("saving");
-        const formData = new FormData();
-        formData.append("file", file);
-
-        const res = await fetch("/api/upload/teamLogo/1", {
-            method: "POST",
-            body: formData
-        });
-
-        const data = await res.json();
-        console.log("Saved URL:", data.url);
-
-        document.getElementById("team1LogoPreview").src = data.url;
-    }
-    
+    status.textContent = "Saving...";
     try {
+        const file = fileInput.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append("file", file);
+            const res = await fetch("/api/upload/teamLogo/1", { method: "POST", body: formData });
+            const data = await res.json();
+            updateLogo("team1LogoPreview", data.url);
+        }
+
         const response = await fetch(`/api/controller/config`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -65,38 +41,30 @@ document.getElementById("saveT1").addEventListener("click", async () => {
 
         if (!response.ok) throw new Error("Server error");
 
+        status.textContent = "✅ Team 1 saved successfully!";
     } catch (err) {
         console.error(err);
+        status.textContent = "⚠️ Failed to save Team 1.";
     }
 });
 
-
-document.getElementById("team2LogoPreview").src = "../../TeamLogos/team_2_logo.png";
-
+// Save Team 2
 document.getElementById("saveT2").addEventListener("click", async () => {
-
+    const status = document.getElementById("team2Status");
     const fileInput = document.getElementById("t2Image");
     const team2NameInput = document.getElementById("t2Name");
 
-    const file = fileInput.files[0];
-    if (file) {
-
-        console.log("saving");
-        const formData = new FormData();
-        formData.append("file", file);
-
-        const res = await fetch("/api/upload/teamLogo/2", {
-            method: "POST",
-            body: formData
-        });
-
-        const data = await res.json();
-        console.log("Saved URL:", data.url);
-
-        document.getElementById("team2LogoPreview").src = data.url;
-    }
-
+    status.textContent = "Saving...";
     try {
+        const file = fileInput.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append("file", file);
+            const res = await fetch("/api/upload/teamLogo/2", { method: "POST", body: formData });
+            const data = await res.json();
+            updateLogo("team2LogoPreview", data.url);
+        }
+
         const response = await fetch(`/api/controller/config`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -105,62 +73,81 @@ document.getElementById("saveT2").addEventListener("click", async () => {
 
         if (!response.ok) throw new Error("Server error");
 
+        status.textContent = "✅ Team 2 saved successfully!";
     } catch (err) {
         console.error(err);
+        status.textContent = "⚠️ Failed to save Team 2.";
     }
 });
 
+// Swap Teams
 document.getElementById("swapTeams").addEventListener("click", async () => {
-
-    // -----------------------------
-    // Swap UI Text
-    // -----------------------------
-    const t1Name = document.getElementById("t1Name");
-    const t2Name = document.getElementById("t2Name");
-
-    const tmpName = t1Name.value;
-    t1Name.value = t2Name.value;
-    t2Name.value = tmpName;
-
-    // -----------------------------
-    // Swap UI Images
-    // -----------------------------
-    const t1Logo = document.getElementById("team1LogoPreview");
-    const t2Logo = document.getElementById("team2LogoPreview");
-
-    const tmpLogo = t1Logo.src;
-    t1Logo.src = t2Logo.src;
-    t2Logo.src = tmpLogo;
-
-    // -----------------------------
-    // Swap Saved Image Files
-    // -----------------------------
+    const status = document.getElementById("swapStatus");
+    status.textContent = "Swapping...";
     try {
+        const t1Name = document.getElementById("t1Name");
+        const t2Name = document.getElementById("t2Name");
+        const t1Logo = document.getElementById("team1LogoPreview");
+        const t2Logo = document.getElementById("team2LogoPreview");
+
+        // Swap UI
+        [t1Name.value, t2Name.value] = [t2Name.value, t1Name.value];
+        [t1Logo.src, t2Logo.src] = [t2Logo.src, t1Logo.src];
+
+        // Swap files on server
         const res = await fetch("/api/upload/swapTeamLogos", { method: "POST" });
         const data = await res.json();
-        if (!data.swapped) console.error(data);
-    } catch (e) {
-        console.error("Failed to swap images:", e);
-    }
+        if (!data.swapped) throw new Error("Server failed swap");
 
-    // -----------------------------
-    // Swap Saved JSON Config
-    // -----------------------------
+        // Save new names
+        const response = await fetch(`/api/controller/config`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ team1: t1Name.value, team2: t2Name.value })
+        });
+        if (!response.ok) throw new Error("Failed to save swapped names");
+
+        status.textContent = "✅ Teams swapped successfully!";
+    } catch (err) {
+        console.error(err);
+        status.textContent = "⚠️ Failed to swap teams.";
+    }
+});
+
+// Save Games
+document.getElementById("saveGames").addEventListener("click", async () => {
+    const status = document.getElementById("gamesStatus");
+    const totalGamesInput = document.getElementById("numGames").value;
+    status.textContent = "Saving...";
     try {
         const response = await fetch(`/api/controller/config`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                team1: t1Name.value,
-                team2: t2Name.value
-            })
+            body: JSON.stringify({ totalGames: totalGamesInput })
         });
-
-        if (!response.ok)
-            throw new Error("Failed to save swapped team names");
-
+        if (!response.ok) throw new Error("Server error");
+        status.textContent = "✅ Games saved successfully!";
     } catch (err) {
-        console.error("Config save failed:", err);
+        console.error(err);
+        status.textContent = "⚠️ Failed to save games.";
     }
+});
 
+// Save Title
+document.getElementById("titleSave").addEventListener("click", async () => {
+    const status = document.getElementById("titleStatus");
+    const titleInput = document.getElementById("titleInput").value;
+    status.textContent = "Saving...";
+    try {
+        const response = await fetch(`/api/controller/config`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title: titleInput })
+        });
+        if (!response.ok) throw new Error("Server error");
+        status.textContent = "✅ Title saved successfully!";
+    } catch (err) {
+        console.error(err);
+        status.textContent = "⚠️ Failed to save title.";
+    }
 });

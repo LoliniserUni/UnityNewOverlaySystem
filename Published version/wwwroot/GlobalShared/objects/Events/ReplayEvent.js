@@ -1,6 +1,16 @@
-﻿export class ReplayEvent {
-    constructor(type) {
-        this.type = type; // "start", "end", "will_end"
-        this.timestamp = Date.now();
+﻿
+
+// -------------------------
+// Event: Replay
+// -------------------------
+export class ReplayEvent {
+    constructor(data) {
+        // Depending on the structure you get, sometimes it is just a string
+        if (typeof data === "string") {
+            this.timestamp = data;
+        } else {
+            // Could expand with more replay info if needed
+            Object.assign(this, data);
+        }
     }
 }

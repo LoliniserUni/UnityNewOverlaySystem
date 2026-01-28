@@ -7,6 +7,7 @@ export class Team {
         this.color_primary = teamData.color_primary ?? "";
         this.color_secondary = teamData.color_secondary ?? "";
         this.score = Number.isFinite(teamData.score) ? teamData.score : 0;
+        this.gameWins = 0;
 
         // Array of Player instances
         this.players = [];

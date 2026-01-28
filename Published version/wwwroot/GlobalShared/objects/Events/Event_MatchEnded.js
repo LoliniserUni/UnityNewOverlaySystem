@@ -1,5 +1,9 @@
-﻿export class Event_MatchEnded {
-    constructor(data = {}) {
-        this.winner_team_num = data.winner_team_num ?? null;
+﻿
+// -------------------------
+// Event: Match Ended
+// -------------------------
+export class Event_MatchEnded {
+    constructor(data) {
+        this.winnerTeamNum = data.winner_team_num ?? null;
     }
 }

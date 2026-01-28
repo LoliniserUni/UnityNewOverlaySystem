@@ -10,13 +10,13 @@
     <div class="screenSize" id="gameOverlay">
 
         <div class="bluePlayers">
-            <div class="bluePlayer" id="bluePlayer3">
+            <div class="bluePlayer" id="bluePlayer1">
                 <div class="bluePlayerBoostText">
-                    <p id="bluePlayer3Name">Player1</p>
-                    <p id="bluePlayer3Boost">100</p>
+                    <p id="bluePlayer1Name">Player1</p>
+                    <p id="bluePlayer1Boost">100</p>
                 </div>
                 <div class="blueboostVisual">
-                    <div class="boostLineBlue" id="bluePlayer3BoostVis">
+                    <div class="boostLineBlue" id="bluePlayer1BoostVis">
 
                     </div>
                 </div>
@@ -32,20 +32,31 @@
                     </div>
                 </div>
             </div>
-            <div class="bluePlayer" id="bluePlayer1">
+            <div class="bluePlayer" id="bluePlayer3">
                 <div class="bluePlayerBoostText">
-                    <p id="bluePlayer1Name">Player3</p>
-                    <p id="bluePlayer1Boost">85</p>
+                    <p id="bluePlayer3Name">Player3</p>
+                    <p id="bluePlayer3Boost">85</p>
                 </div>
                 <div class="blueboostVisual">
-                    <div class="boostLineBlue" id="bluePlayer1BoostVis">
+                    <div class="boostLineBlue" id="bluePlayer3BoostVis">
+
+                    </div>
+                </div>
+            </div>
+            <div class="bluePlayer" id="bluePlayer4">
+                <div class="bluePlayerBoostText">
+                    <p id="bluePlayer4Name">Player4</p>
+                    <p id="bluePlayer4Boost">85</p>
+                </div>
+                <div class="blueboostVisual">
+                    <div class="boostLineBlue" id="bluePlayer4BoostVis">
 
                     </div>
                 </div>
             </div>
         </div>
         <div class="orangePlayers">
-            <div class="orangePlayer"id="orangePlayer1">
+            <div class="orangePlayer" id="orangePlayer1">
                 <div class="orangePlayerBoostText">
                     <p id="orangePlayer1Boost">100</p>
                     <p id="orangePlayer1Name">Player1</p>
@@ -74,6 +85,17 @@
                 </div>
                 <div class="orangeboostVisual">
                     <div class="boostLineOrange" id="orangePlayer3BoostVis">
+
+                    </div>
+                </div>
+            </div>
+            <div class="orangePlayer" id="orangePlayer4">
+                <div class="orangePlayerBoostText">
+                    <p id="orangePlayer4Boost">85</p>
+                    <p id="orangePlayer4Name">Player4</p>
+                </div>
+                <div class="orangeboostVisual">
+                    <div class="boostLineOrange" id="orangePlayer4BoostVis">
 
                     </div>
                 </div>
@@ -170,15 +192,15 @@
             <div class="replayStatsBox" id="replayStatsBox">
                 <div class="replayStats" id="replayStats">
                     <div class="replayStatsSplitBox">
-                        <img src="../assets/goal.svg" class="replayStatFeed">
+                        <img src="../assets/goal.svg" class="replayStatFeed" id="goalReplayStat">
                         <p id="goalScorer">LOLINISER</p>
                     </div>
                     <div class="replayStatsSplitBox">
-                        <img src="../assets/shot-on-goal.svg" class="replayStatFeed">
+                        <img src="../assets/shot-on-goal.svg" class="replayStatFeed" id="shotReplayStat">
                         <p id="goalSpeed">100kph/h</p>
                     </div>
                     <div class="replayStatsSplitBox assistStats" id="assistStats">
-                        <img src="../assets/assist.svg" class="replayStatFeed">
+                        <img src="../assets/assist.svg" class="replayStatFeed" id="assistReplayStat">
                         <p id="goalAssister">LOLINISER</p>
                     </div>
                 </div>

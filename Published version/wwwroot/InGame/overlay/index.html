@@ -1,12 +1,391 @@
 ﻿<!DOCTYPE html>
+<link href="igstyle.css" rel="stylesheet" />
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="overlay.js" defer></script>
-    <style>
-
-    </style>
+    <title>Unity Overlay</title>
+    <script type="module" src="overlay.js" defer></script>
 </head>
 <body>
+    <div class="screenSize" id="gameOverlay">
+
+        <div class="bluePlayers">
+            <div class="bluePlayer" id="bluePlayer1">
+                <div class="bluePlayerBoostText">
+                    <p id="bluePlayer1Name">Player1</p>
+                    <p id="bluePlayer1Boost">100</p>
+                </div>
+                <div class="blueboostVisual">
+                    <div class="boostLineBlue" id="bluePlayer1BoostVis">
+
+                    </div>
+                </div>
+            </div>
+            <div class="bluePlayer" id="bluePlayer2">
+                <div class="bluePlayerBoostText">
+                    <p id="bluePlayer2Name">Player2</p>
+                    <p id="bluePlayer2Boost">50</p>
+                </div>
+                <div class="blueboostVisual">
+                    <div class="boostLineBlue" id="bluePlayer2BoostVis">
+
+                    </div>
+                </div>
+            </div>
+            <div class="bluePlayer" id="bluePlayer3">
+                <div class="bluePlayerBoostText">
+                    <p id="bluePlayer3Name">Player3</p>
+                    <p id="bluePlayer3Boost">85</p>
+                </div>
+                <div class="blueboostVisual">
+                    <div class="boostLineBlue" id="bluePlayer3BoostVis">
+
+                    </div>
+                </div>
+            </div>
+            <div class="bluePlayer" id="bluePlayer4">
+                <div class="bluePlayerBoostText">
+                    <p id="bluePlayer4Name">Player4</p>
+                    <p id="bluePlayer4Boost">85</p>
+                </div>
+                <div class="blueboostVisual">
+                    <div class="boostLineBlue" id="bluePlayer4BoostVis">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="orangePlayers">
+            <div class="orangePlayer" id="orangePlayer1">
+                <div class="orangePlayerBoostText">
+                    <p id="orangePlayer1Boost">100</p>
+                    <p id="orangePlayer1Name">Player1</p>
+                </div>
+                <div class="orangeboostVisual">
+                    <div class="boostLineOrange" id="orangePlayer1BoostVis">
+
+                    </div>
+                </div>
+            </div>
+            <div class="orangePlayer" id="orangePlayer2">
+                <div class="orangePlayerBoostText">
+                    <p id="orangePlayer2Boost">50</p>
+                    <p id="orangePlayer2Name">Player2</p>
+                </div>
+                <div class="orangeboostVisual">
+                    <div class="boostLineOrange" id="orangePlayer2BoostVis">
+
+                    </div>
+                </div>
+            </div>
+            <div class="orangePlayer" id="orangePlayer3">
+                <div class="orangePlayerBoostText">
+                    <p id="orangePlayer3Boost">85</p>
+                    <p id="orangePlayer3Name">Player3</p>
+                </div>
+                <div class="orangeboostVisual">
+                    <div class="boostLineOrange" id="orangePlayer3BoostVis">
+
+                    </div>
+                </div>
+            </div>
+            <div class="orangePlayer" id="orangePlayer4">
+                <div class="orangePlayerBoostText">
+                    <p id="orangePlayer4Boost">85</p>
+                    <p id="orangePlayer4Name">Player4</p>
+                </div>
+                <div class="orangeboostVisual">
+                    <div class="boostLineOrange" id="orangePlayer4BoostVis">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="centreBoard">
+            <div class="topBar">
+                <div class="topBarL"></div>
+                <div class="topBarR"></div>
+                <p class="gameText" id="gameInfo">RLCS SSA OPEN 4</p>
+            </div>
+            <div class="timerBox">
+                <p class="timerText" id="timerText">5:00</p>
+            </div>
+
+            <div class="blueBox">
+                <div class="blueTitleBox">
+                    <p class="blueTeamName" id="blueTeamName">BLUE TEAM</p>
+                </div>
+                <div class="blueScoreBox">
+                    <p class="blueScoreText" id="blueScoreText">5</p>
+                </div>
+            </div>
+            <div class="orangeBox">
+                <div class="orangeTitleBox">
+                    <p class="orangeTeamName" id="orangeTeamName">ORANGE TEAM</p>
+                </div>
+                <div class="orangeScoreBox">
+                    <p class="orangeScoreText" id="orangeScoreText">5</p>
+                </div>
+            </div>
+
+            <div class="gameLenBox">
+                <p id="gameNum" class="gameNum">GAME 5</p>
+                <p id="seriesLen" class="seriesLen">BEST OF 5</p>
+            </div>
+
+            <div class="blueWins">
+                <div class="blueWinCheck" id="blueWinCheck1"></div>
+                <div class="blueWinCheck" id="blueWinCheck2"></div>
+                <div class="blueWinCheck" id="blueWinCheck3"></div>
+                <div class="blueWinCheck" id="blueWinCheck4"></div>
+            </div>
+
+            <div class="orangeWins">
+                <div class="orangeWinCheck" id="orangeWinCheck1"></div>
+                <div class="orangeWinCheck" id="orangeWinCheck2"></div>
+                <div class="orangeWinCheck" id="orangeWinCheck3"></div>
+                <div class="orangeWinCheck" id="orangeWinCheck4"></div>
+            </div>
+        </div>
+
+        <div class="bottomBar" id="bottomBar">
+            <div class="bottomLine" id="activePlayerLine"></div>
+            <div class="activeName">
+                <p class="activePlayerText" id="activePlayerText">PLAYER 1</p>
+            </div>
+            <div class="scoreBoxes">
+                <div class="scoreSplit">
+                    <p id="scoreText">9999</p>
+                    <p id="scoreNameText">SCORE</p>
+                </div>
+                <div class="scoreSplit">
+                    <p id="goalsText">2</p>
+                    <p id="goalsNameText">GOALS</p>
+                </div>
+                <div class="scoreSplit">
+                    <p id="shotsText">9</p>
+                    <p id="shotsNameText">SHOTS</p>
+                </div>
+                <div class="scoreSplit">
+                    <p id="assistsText">0</p>
+                    <p id="assistsNameText">ASSISTS</p>
+                </div>
+                <div class="scoreSplit">
+                    <p id="savesText">1</p>
+                    <p id="savesNameText">SAVES</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="boostCircle" id="boostCircleParent">
+            <div class="quartCircle"></div>
+            <div class="boostText">
+                <p id="boostAmountText">100</p>
+            </div>
+            <div class="boostVisualCircle" id="boostVisualCircle"></div>
+            <div class="reticle"></div>
+            <div class="topRecticle"></div>
+        </div>
+
+        <div class="replayBar" id="replayBar">
+            <div class="replayStatsBox" id="replayStatsBox">
+                <div class="replayStats" id="replayStats">
+                    <div class="replayStatsSplitBox">
+                        <img src="../assets/goal.svg" class="replayStatFeed" id="goalReplayStat">
+                        <p id="goalScorer">LOLINISER</p>
+                    </div>
+                    <div class="replayStatsSplitBox">
+                        <img src="../assets/shot-on-goal.svg" class="replayStatFeed" id="shotReplayStat">
+                        <p id="goalSpeed">100kph/h</p>
+                    </div>
+                    <div class="replayStatsSplitBox assistStats" id="assistStats">
+                        <img src="../assets/assist.svg" class="replayStatFeed" id="assistReplayStat">
+                        <p id="goalAssister">LOLINISER</p>
+                    </div>
+                </div>
+                <div class="replayPlayerStats">
+
+                </div>
+            </div>
+            <div class="replayBoxBottom">
+                <div class="replayCircle1"></div>
+                <p class="replayText">REPLAY</p>
+                <div class="replayCircle2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scoreBoardScreen" id="scoreBoardScreen">
+        <div class="sb-scoreBoard"> </div>
+        <div class="sb-backgroundGradient"> </div>
+        <div class="sb-scoreBoardHolder">
+            <div class="sb-titleBlock">
+                <p class="sb-titleText" id="sb-titleText">RLCS 2025 - OPEN QUAL 1</p>
+            </div>
+            <div class="sb-teamTitleContainer">
+
+                <div class="sb-gameTextContainer">
+                    <p class="sb-gameNumberText" id="sb-gameNumber">
+                        GAME 5
+                    </p>
+                    <p class="sb-totalGamesText" id="sb-totalGames">
+                        OF 7
+                    </p>
+                </div>
+
+                <div class="sb-blueTitleContainer">
+                    <div class="sb-blueTextBG">
+                        <div class="sb-blueName">
+                            <p id="sb-blueTeamName">UNITY ESPORTS</p>
+                        </div>
+                        <img class="sb-blueLogo" id="sb-blueLogo" />
+                    </div>
+                    <div class="sb-blueBorderTop"></div>
+                    <div class="sb-blueScoreContainer">
+                        <p class="sb-blueScore" id="sb-blueScore">0</p>
+                    </div>
+                </div>
+
+                <div class="sb-orangeTitleContainer">
+                    <div class="sb-orangeTextBG">
+                        <div class="sb-orangeName">
+                            <p id="sb-orangeTeamName">UNITY ESPORTS</p>
+                        </div>
+                        <img class="sb-orangeLogo" id="sb-orangeLogo" />
+                    </div>
+                    <div class="sb-orangeBorderTop"></div>
+                    <div class="sb-orangeScoreContainer">
+                        <p class="sb-orangeScore" id="sb-orangeScore">0</p>
+                    </div>
+                </div>
+
+                <div class="sb-gameStatsContainer">
+                    <div class="sb-playerListContainer">
+                        <div class="sb-box">
+                            <div class="sb-blueHalf">
+                                <div class="sb-blueNamesLine"></div>
+                                <div class="sb-blueNamesBackground"></div>
+                                <div class="sb-blueGridContainer">
+                                    <div class="sb-grid">
+                                        <p class="sb-bluePlayer" id="sb-bluePlayer1"></p>
+                                        <p class="sb-bluePlayer" id="sb-bluePlayer2"></p>
+                                        <p class="sb-bluePlayer" id="sb-bluePlayer3"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sb-orangeHalf">
+                                <div class="sb-orangeNamesLine"></div>
+                                <div class="sb-orangeNamesBackground"></div>
+                                <div class="sb-orangeGridContainer">
+                                    <div class="sb-grid">
+                                        <p class="sb-bluePlayer" id="sb-orangePlayer1"></p>
+                                        <p class="sb-bluePlayer" id="sb-orangePlayer2"></p>
+                                        <p class="sb-bluePlayer" id="sb-orangePlayer3"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sb-scoreBox">
+                        <div class="sb-sbLine">
+                            <div class="sb-centreTitle"><p class="sb-bluePlayer">SCORE</p></div>
+                            <div class="sb-blueHalf">
+                                <div class="sb-blueGridContainer">
+                                    <div class="sb-grid">
+                                        <p class="sb-bluePlayer" id="sb-blueScore1"></p>
+                                        <p class="sb-bluePlayer" id="sb-blueScore2"></p>
+                                        <p class="sb-bluePlayer" id="sb-blueScore3"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sb-orangeHalf">
+                                <div class="sb-orangeGridContainer">
+                                    <div class="sb-grid">
+                                        <p class="sb-bluePlayer" id="sb-orangeScore1"></p>
+                                        <p class="sb-bluePlayer" id="sb-orangeScore2"></p>
+                                        <p class="sb-bluePlayer" id="sb-orangeScore3"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sb-centreLine">
+                                <div id="sb-scoreSkew" class="sb-lineObject">
+                                    <div class="sb-centreLineBlue" id="sb-scoreLineBlue"></div>
+                                    <div class="sb-centreLineOrange" id="sb-scoreLineOrange"></div>
+                                    <div class="sb-centreLineCentre" id="sb-scoreLineCentre"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repeat for Goals, Assists, Shots, Saves, Touches, Demos -->
+                    <div class="sb-goalsBox">
+                        <div class="sb-sbLine">
+                            <div class="sb-centreTitle"><p class="sb-bluePlayer">GOALS</p></div>
+                            <div class="sb-blueHalf"><div class="sb-blueGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-blueGoals1"></p><p class="sb-bluePlayer" id="sb-blueGoals2"></p><p class="sb-bluePlayer" id="sb-blueGoals3"></p></div></div></div>
+                            <div class="sb-orangeHalf"><div class="sb-orangeGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-orangeGoals1"></p><p class="sb-bluePlayer" id="sb-orangeGoals2"></p><p class="sb-bluePlayer" id="sb-orangeGoals3"></p></div></div></div>
+                            <div class="sb-centreLine"><div id="sb-goalsSkew" class="sb-lineObject"><div class="sb-centreLineBlue"></div><div class="sb-centreLineOrange"></div><div class="sb-centreLineCentre"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="sb-assistsBox">
+                        <div class="sb-sbLine">
+                            <div class="sb-centreTitle"><p class="sb-bluePlayer">ASSISTS</p></div>
+                            <div class="sb-blueHalf"><div class="sb-blueGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-blueAssists1"></p><p class="sb-bluePlayer" id="sb-blueAssists2"></p><p class="sb-bluePlayer" id="sb-blueAssists3"></p></div></div></div>
+                            <div class="sb-orangeHalf"><div class="sb-orangeGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-orangeAssists1"></p><p class="sb-bluePlayer" id="sb-orangeAssists2"></p><p class="sb-bluePlayer" id="sb-orangeAssists3"></p></div></div></div>
+                            <div class="sb-centreLine"><div id="sb-assistsSkew" class="sb-lineObject"><div class="sb-centreLineBlue"></div><div class="sb-centreLineOrange"></div><div class="sb-centreLineCentre"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="sb-shotsBox">
+                        <div class="sb-sbLine">
+                            <div class="sb-centreTitle"><p class="sb-bluePlayer">SHOTS</p></div>
+                            <div class="sb-blueHalf"><div class="sb-blueGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-blueShots1"></p><p class="sb-bluePlayer" id="sb-blueShots2"></p><p class="sb-bluePlayer" id="sb-blueShots3"></p></div></div></div>
+                            <div class="sb-orangeHalf"><div class="sb-orangeGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-orangeShots1"></p><p class="sb-bluePlayer" id="sb-orangeShots2"></p><p class="sb-bluePlayer" id="sb-orangeShots3"></p></div></div></div>
+                            <div class="sb-centreLine"><div id="sb-shotsSkew" class="sb-lineObject"><div class="sb-centreLineBlue"></div><div class="sb-centreLineOrange"></div><div class="sb-centreLineCentre"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="sb-savesBox">
+                        <div class="sb-sbLine">
+                            <div class="sb-centreTitle"><p class="sb-bluePlayer">SAVES</p></div>
+                            <div class="sb-blueHalf"><div class="sb-blueGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-blueSaves1"></p><p class="sb-bluePlayer" id="sb-blueSaves2"></p><p class="sb-bluePlayer" id="sb-blueSaves3"></p></div></div></div>
+                            <div class="sb-orangeHalf"><div class="sb-orangeGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-orangeSaves1"></p><p class="sb-bluePlayer" id="sb-orangeSaves2"></p><p class="sb-bluePlayer" id="sb-orangeSaves3"></p></div></div></div>
+                            <div class="sb-centreLine"><div id="sb-savesSkew" class="sb-lineObject"><div class="sb-centreLineBlue"></div><div class="sb-centreLineOrange"></div><div class="sb-centreLineCentre"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="sb-touchesBox">
+                        <div class="sb-sbLine">
+                            <div class="sb-centreTitle"><p class="sb-bluePlayer">BALL TOUCHES</p></div>
+                            <div class="sb-blueHalf"><div class="sb-blueGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-blueTouches1"></p><p class="sb-bluePlayer" id="sb-blueTouches2"></p><p class="sb-bluePlayer" id="sb-blueTouches3"></p></div></div></div>
+                            <div class="sb-orangeHalf"><div class="sb-orangeGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-orangeTouches1"></p><p class="sb-bluePlayer" id="sb-orangeTouches2"></p><p class="sb-bluePlayer" id="sb-orangeTouches3"></p></div></div></div>
+                            <div class="sb-centreLine"><div id="sb-touchesSkew" class="sb-lineObject"><div class="sb-centreLineBlue"></div><div class="sb-centreLineOrange"></div><div class="sb-centreLineCentre"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="sb-demoBox">
+                        <div class="sb-sbLine">
+                            <div class="sb-centreTitle"><p class="sb-bluePlayer">DEMOS</p></div>
+                            <div class="sb-blueHalf"><div class="sb-blueGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-blueDemos1"></p><p class="sb-bluePlayer" id="sb-blueDemos2"></p><p class="sb-bluePlayer" id="sb-blueDemos3"></p></div></div></div>
+                            <div class="sb-orangeHalf"><div class="sb-orangeGridContainer"><div class="sb-grid"><p class="sb-bluePlayer" id="sb-orangeDemos1"></p><p class="sb-bluePlayer" id="sb-orangeDemos2"></p><p class="sb-bluePlayer" id="sb-orangeDemos3"></p></div></div></div>
+                            <div class="sb-centreLine">
+                                <div id="sb-demosSkew" class="sb-lineObject">
+                                    <div class="sb-centreLineBlue"></div>
+                                    <div class="sb-centreLineOrange"></div>
+                                    <div class="sb-centreLineCentre"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>

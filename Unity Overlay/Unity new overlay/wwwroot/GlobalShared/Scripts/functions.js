@@ -304,3 +304,43 @@ export async function getCasters(field1, field2) {
         console.log("⚠️ Failed to load roster.");
     }
 }
+
+export async function get3Casters(field1, field2, field3) {
+    const scene = "controller";
+
+    try {
+        const res = await fetch(`/api/${scene}/config`);
+        const text = await res.text(); // <-- get raw text
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            console.log("⚠️ Response was not valid JSON.");
+            return;
+        }
+
+        if (data.error) {
+            console.log(`⚠️ ${data.error}`);
+            return;
+        }
+
+        const c1 = data.caster1;
+
+
+        document.getElementById(field1).value = c1;
+
+        const c2 = data.caster2;
+
+
+        document.getElementById(field2).value = c2;
+
+        const c3 = data.caster3;
+
+
+        document.getElementById(field3).value = c3;
+    } catch (err) {
+        console.error(err);
+        console.log("⚠️ Failed to load roster.");
+    }
+}

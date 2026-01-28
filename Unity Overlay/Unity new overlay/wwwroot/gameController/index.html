@@ -4,65 +4,203 @@
     <meta charset="UTF-8">
     <title>Unity Stream Controller</title>
     <script type="module" src="controller.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+
+        :root {
+            --buttonColor: #001c34;
+            --buttonColor2: #0089ff;
+            --orangeTeamSel: #9c4800;
+            --orangeTeamHover: rgb(118, 54, 0, 0.56);
+            --blueTeamSel: #002c51;
+            --blueTeamHover: rgb(0, 42, 151, 0.61);
+        }
+        /* Base styles */
         body {
-            font-family: sans-serif;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
             padding: 20px;
-            background: #222;
-            color: white;
+            background: #181818;
+            color: #f5f5f5;
         }
 
-        input, button, select {
-            margin: 5px 0;
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
         }
 
-        .scene-controls {
-            display: none; /* hide by default */
+        button, input, select {
+            font-size: 1rem;
         }
 
-        .scene-controls.active {
-            display: block; /* show active scene */
+        /* Container styles */
+        .controller-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
         }
 
+        .orange .team-card:hover{
+            background: var(--orangeTeamSel);
+            box-shadow: 0 4px 12px var(--orangeTeamHover);
+        }
+
+        .blue .team-card:hover {
+            background: var(--blueTeamSel);
+            box-shadow: 0 4px 12px var(--blueTeamHover);
+        }
+        .team-card {
+            background: #252525;
+            border-radius: 12px;
+            padding: 20px;
+            width: 280px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background ease 0.2s;
+            height: 400px;
+        }
+
+            .team-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .team-card input[type="text"] {
+                width: 100%;
+                padding: 8px;
+                border-radius: 6px;
+                border: none;
+                margin-bottom: 10px;
+            }
+
+            .team-card input[type="file"] {
+                margin-bottom: 10px;
+            }
+
+            .team-card button {
+                background: var(--buttonColor);
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background 0.2s ease;
+            }
+
+                .team-card button:hover {
+                    background: var(--buttonColor2);
+                }
+
+        .team-logo {
+            margin-top: 10px;
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 2px solid #444;
+            background: #111;
+        }
+
+        /* Controls section */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #252525;
+            border-radius: 12px;
+            padding: 20px;
+            width: 280px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            height: 400px;
+        }
+            .controls:hover {
+                transform: translateY(-5px);
+            }
+
+            .controls input[type="text"],
+            .controls input[type="number"] {
+                width: 100%;
+                padding: 8px;
+                border-radius: 6px;
+                border: none;
+            }
+
+            .controls button {
+                width: 100%;
+                background: var(--buttonColor);
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background 0.2s ease;
+            }
+
+                .controls button:hover {
+                    background: var(--buttonColor2);
+                }
+
+        /* Swap button styling */
+        .swap-button {
+            background: var(--buttonColor);
+        }
+
+            .swap-button:hover {
+                background: var(--buttonColor2);
+            }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .controller-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>Unity Overlay Controller</h1>
 
-    <div class="teamNames">
-        <div>
-            <div>
+    <div class="controller-container">
+        <!-- Team 1 Card -->
+        <div class="blue">
+            <div class="team-card">
+                <h2>Blue Team</h2>
                 <input type="text" id="t1Name" placeholder="Enter team name" />
                 <input type="file" id="t1Image" />
-                <button id="saveT1">Save Team 1 Logo</button>
-                <img id="team1LogoPreview" style="width: 160px; height: 160px" />
-
+                <button id="saveT1">Save Team 1</button>
+                <p id="team1Status" class="status"></p> <!-- Feedback box -->
+                <img id="team1LogoPreview" class="team-logo" />
             </div>
         </div>
-        <div>
-            <div>
+
+        <!-- Team 2 Card -->
+        <div class="orange">
+            <div class="team-card">
+                <h2>Orange Team</h2>
                 <input type="text" id="t2Name" placeholder="Enter team name" />
                 <input type="file" id="t2Image" />
-                <button id="saveT2">Save Team 2 Logo</button>
-                <img id="team2LogoPreview" style="width: 160px; height: 160px" />
-
+                <button id="saveT2">Save Team 2</button>
+                <p id="team2Status" class="status"></p> <!-- Feedback box -->
+                <img id="team2LogoPreview" class="team-logo" />
             </div>
         </div>
-
-        <div>
-            <button id="swapTeams">Swap Teams</button>
-        </div>
         
-        <div>
-            <input type="number" id="numGames" placeholder="number of games" />
+
+        <!-- Controls -->
+        <div class="controls">
+            <button id="swapTeams" class="swap-button">Swap Teams</button>
+            <p id="swapStatus" class="status"></p> <!-- Feedback box -->
+            <input type="number" id="numGames" placeholder="Number of games" />
             <button id="saveGames">Save Games</button>
+            <p id="gamesStatus" class="status"></p> <!-- Feedback box -->
+            <input type="text" id="titleInput" placeholder="Title" />
+            <button id="titleSave">Save Title</button>
+            <p id="titleStatus" class="status"></p> <!-- Feedback box -->
         </div>
 
-        <div>
-            <input type="text" id="titleInput" placeholder="title" />
-            <button id="titleSave">Save title</button>
-        </div>
     </div>
-
 </body>
 </html>

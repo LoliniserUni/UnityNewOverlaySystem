@@ -148,7 +148,7 @@ export class GameController {
     // ------------------------------------------------------------
     // PLAYER MANAGEMENT
     // ------------------------------------------------------------
-    updatePlayers(playersJson, maxPlayersPerTeam = 3) {
+    updatePlayers(playersJson, maxPlayersPerTeam = 4) {
         if (!playersJson) return;
 
         const currentPlayerNames = new Set();

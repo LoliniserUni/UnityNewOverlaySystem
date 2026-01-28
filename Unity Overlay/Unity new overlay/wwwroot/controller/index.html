@@ -4,73 +4,170 @@
     <meta charset="UTF-8">
     <title>Unity Stream Controller</title>
     <script type="module" src="controller.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --buttonColor: #001c34;
+            --buttonColor2: #0089ff;
+        }
+        /* Base styles */
         body {
-            font-family: sans-serif;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
             padding: 20px;
-            background: #222;
+            background: #181818;
+            color: #f5f5f5;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            font-weight: 500;
+        }
+
+        input, select, button {
+            font-size: 1rem;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Cards */
+        .card {
+            background: #252525;
+            border-radius: 12px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+            /* Inputs & buttons */
+            .card input, .card select {
+                width: 100%;
+                padding: 8px;
+                border-radius: 6px;
+                border: none;
+                margin-bottom: 10px;
+            }
+
+            .card button {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: background 0.2s ease;
+            }
+
+        /* Specific button colors */
+        .btn-save {
+            background: var(--buttonColor);
             color: white;
         }
 
-        input, button, select {
-            margin: 5px 0;
+            .btn-save:hover {
+                background: var(--buttonColor2);
+            }
+
+        .btn-timer {
+            background: var(--buttonColor);
+            color: white;
         }
 
+            .btn-timer:hover {
+                background: var(--buttonColor2);
+            }
+
+        /* Status messages */
+        .status {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            min-height: 1.2em;
+        }
+
+        /* Scene controls */
         .scene-controls {
-            display: none; /* hide by default */
+            display: none;
         }
 
-        .scene-controls.active {
-            display: block; /* show active scene */
-        }
+            .scene-controls.active {
+                display: block;
+            }
 
+        /* Responsive */
+        @media(max-width: 950px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>Unity Overlay Controller</h1>
 
-    <h2>Scene Specific Settings</h2>
-    <!-- Scene selector -->
-    <label>Select Scene:</label><br>
-    <select id="sceneSelect">
-        <option value="Starting">Starting</option>
-        <option value="Ending">Ending</option>
-        <option value="BRB">BRB</option>
-    </select><br>
+    <div class="container">
+        <!-- Scene Selector & Timer -->
+        <div class="card">
+            <h2>Scene Controls</h2>
+            <label for="sceneSelect">Select Scene:</label>
+            <select id="sceneSelect">
+                <option value="Starting">Starting</option>
+                <option value="Ending">Ending</option>
+                <option value="BRB">BRB</option>
+            </select>
 
-    <div class="scene-controls" data-scene="Starting,Ending,BRB">
-        <!-- Timer -->
-        <label>Timer (seconds):</label><br>
-        <input id="startTimerVal" type="text" placeholder="0">
-        <button id="startStartTimer">Start Timer</button>
-        <p id="startTimerStatus"></p>
+            <div class="scene-controls" data-scene="Starting,Ending,BRB">
+                <label for="startTimerVal">Timer (seconds):</label>
+                <input id="startTimerVal" type="number" placeholder="0">
+                <button id="startStartTimer" class="btn-timer">Start Timer</button>
+                <p id="startTimerStatus" class="status"></p>
+            </div>
+        </div>
+
+        <!-- Roster -->
+        <div class="card">
+            <h2>Current Roster</h2>
+            <input id="Player1" type="text" placeholder="Player 1">
+            <input id="Player2" type="text" placeholder="Player 2">
+            <input id="Player3" type="text" placeholder="Player 3">
+            <input id="Player4" type="text" placeholder="Player 4">
+            <button id="submitRoster" class="btn-save">Save Roster</button>
+            <p id="rosterStatus" class="status"></p>
+        </div>
+
+        <!-- Casters -->
+        <div class="card">
+            <h2>Casters</h2>
+            <input id="caster1" type="text" placeholder="Caster 1">
+            <input id="caster2" type="text" placeholder="Caster 2">
+            <input id="caster3" type="text" placeholder="Caster 3">
+            <button id="submitCasters" class="btn-save">Save Casters</button>
+            <p id="casterStatus" class="status"></p>
+        </div>
+
+        <!-- Scrolling Text -->
+        <div class="card">
+            <h2>Scrolling Text</h2>
+            <input id="ScrollingText" type="text" placeholder="Scrolling text">
+            <button id="submitScrollingText" class="btn-save">Save Text</button>
+            <p id="scrollingTextStatus" class="status"></p>
+        </div>
     </div>
-
-    <h2>Global settings</h2>
-    <div class="Roster">
-        <label>Current Roster:</label>
-        <input id="Player1" type="text" placeholder="Player 1">
-        <input id="Player2" type="text" placeholder="Player 2">
-        <input id="Player3" type="text" placeholder="Player 3">
-        <input id="Player4" type="text" placeholder="Player 4">
-        <button id="submitRoster">Save roster</button>
-        <p id="rosterStatus"></p>
-    </div>
-
-    <div class="casters">
-        <label>Current Casters:</label>
-        <input id="caster1" type="text" placeholder="caster 1">
-        <input id="caster2" type="text" placeholder="caster 2">
-        <button id="submitCasters">Save casters</button>
-        <p id="casterStatus"></p>
-    </div>
-
-    <div class="scrollingText">
-        <label>Scrolling text:</label>
-        <input id="ScrollingText" type="text" placeholder="Scrolling text" />
-        <button id="submitScrollingText">Save text</button>
-        <p id="scrollingTextStatus"></p>
-    </div>
-
 </body>
 </html>
